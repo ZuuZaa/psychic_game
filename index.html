@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>psychic_game</title>
+</head>
+
+<body>
+    <header>
+        <h1>The Psychic Game</h1>
+    </header>
+    <section>
+        <h3>Guess what letter I'm thinking of :)</h3>
+        <div>Wins:
+            <span id="win">0</span>
+        </div><br>
+        <div>Loses:
+            <span id="lose">0</span>
+        </div><br>
+        <div>Guesses:
+            <span id="guess-number">9</span>
+        </div><br>
+        <div>Your Guesses so far:
+            <span id="guess-letter"> </span>
+        </div><br>
+    </section>
+
+    <script>
+        var wins = 0;
+        var loses = 0;
+        var guesses = 9;
+        var userguess = null;
+        var userletters = [];
+        var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        function game() {
+
+            let random = Math.floor(Math.random() * letters.length);
+
+            window.onkeyup = function (e) {
+
+                userguess = String.fromCharCode(e.keyCode);
+                userguess = userguess.toLocaleLowerCase();
+                console.log(userguess);
+                console.log(letters[random]);
+                guesses--;
+                console.log(guesses);
+                document.querySelector("#guess-number").innerHTML = guesses;
+                userletters.push(userguess);
+                document.querySelector("#guess-letter").innerHTML = userletters;
+
+                if (userguess == letters[random]) {
+                    wins++;
+                    console.log(wins);
+                    document.querySelector("#win").innerHTML = wins;
+                    guesses = 9;
+                    document.querySelector("#guess-number").innerHTML = guesses;
+                    userletters = [];
+                    document.querySelector("#guess-letter").innerHTML = userletters;
+                    game();
+                }
+                if (guesses == 0) {
+                    loses++;
+                    console.log(loses);
+                    document.querySelector("#lose").innerHTML = loses;
+                    guesses = 9;
+                    document.querySelector("#guess-number").innerHTML = guesses;
+                    userletters = [];
+                    document.querySelector("#guess-letter").innerHTML = userletters;
+                    game();
+                }
+            }
+        }
+
+    game();
+
+    </script>
+</body>
+
+</html>
